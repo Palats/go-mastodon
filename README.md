@@ -1,3 +1,5 @@
+Note: Fork used by https://github.com/Palats/mastopoof to support not-yet upstreamed features.
+
 # go-mastodon
 
 [![Build Status](https://github.com/mattn/go-mastodon/workflows/test/badge.svg?branch=master)](https://github.com/mattn/go-mastodon/actions?query=workflow%3Atest)
