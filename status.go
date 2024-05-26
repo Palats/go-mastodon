@@ -45,6 +45,7 @@ type Status struct {
 	Language           string          `json:"language"`
 	Pinned             interface{}     `json:"pinned"`
 	ScheduledParams    ScheduledParams `json:"params"`
+	Filtered           []FilterResult  `json:"filtered"`
 }
 
 // StatusHistory is a struct to hold status history data.
@@ -56,6 +57,13 @@ type StatusHistory struct {
 	CreatedAt        time.Time    `json:"created_at"`
 	Emojis           []Emoji      `json:"emojis"`
 	MediaAttachments []Attachment `json:"media_attachments"`
+}
+
+// FilterResult holds information about which filter matched a status.
+type FilterResult struct {
+	Filter         *Filter  `json:"filter"`
+	KeywordMatches []string `json:"keyword_matches"`
+	StatusMatches  []string `json:"status_matches"`
 }
 
 // ScheduledStatus holds information returned when ScheduledAt is set on a status
