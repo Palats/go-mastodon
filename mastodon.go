@@ -2,6 +2,7 @@
 package mastodon
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"errors"
@@ -132,13 +133,27 @@ func (c *Client) doAPI(ctx context.Context, method string, uri string, params in
 		}
 	}
 
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return fmt.Errorf("failed to ReadAll: %w", err)
+	}
+	s := string(body)
+
+	bad := "-0001-11-30T00:00:00.000Z"
+	if strings.Contains(s, bad) {
+		fmt.Printf("## found entry with bad string %s", bad)
+		s = strings.Replace(s, bad, "0001-11-30T00:00:00.000Z", -1)
+
+	}
+	buf := bytes.NewBufferString(s)
+
 	if c.JSONWriter != nil {
 		if resetter, ok := c.JSONWriter.(WriterResetter); ok {
 			resetter.Reset()
 		}
-		return json.NewDecoder(io.TeeReader(resp.Body, c.JSONWriter)).Decode(&res)
+		return json.NewDecoder(io.TeeReader(buf, c.JSONWriter)).Decode(&res)
 	} else {
-		return json.NewDecoder(resp.Body).Decode(&res)
+		return json.NewDecoder(buf).Decode(&res)
 	}
 }
 
