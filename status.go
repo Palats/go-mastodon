@@ -46,6 +46,9 @@ type Status struct {
 	Pinned             interface{}     `json:"pinned"`
 	ScheduledParams    ScheduledParams `json:"params"`
 	Filtered           []FilterResult  `json:"filtered"`
+	QuotesCount        interface{}     `json:"quotes_count"`
+	Quote              *Quote          `json:"quote"`
+	QuoteApproval      *QuoteApproval  `json:"quote_approval"`
 }
 
 // StatusHistory is a struct to hold status history data.

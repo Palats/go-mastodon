@@ -407,6 +407,23 @@ type Emoji struct {
 	VisibleInPicker bool   `json:"visible_in_picker"`
 }
 
+// Quote holds information for Quote in quote posts.
+// This is both "Quote" and "ShallowQuote"
+type Quote struct {
+	State string `json:"state"`
+	// Non-shallow quote.
+	QuotedStatus *Status `json:"quoted_status"`
+	// Shallow quote.
+	QuotedStatusID string `json:"quoted_status_id"`
+}
+
+// QuoteApproval holds quote approval info.
+type QuoteApproval struct {
+	Automatic   []string `json:"automatic"`
+	Manual      []string `json:"manual"`
+	CurrentUser string   `json:"current_user"`
+}
+
 // Results hold information for search result.
 type Results struct {
 	Accounts []*Account `json:"accounts"`
